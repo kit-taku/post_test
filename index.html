@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時間検証フォーム</title>
+    <style>
+        #error-message {
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="error-message">ページの表示時間とフォーム送信時間が異なります。</div>
+    <form id="time-form">
+        <label for="data">データを入力してください:</label>
+        <input type="text" id="data" name="data" required>
+        <button type="submit">送信</button>
+    </form>
+
+    <script>
+        const currentTime = new Date();
+        const currentMinutes = (currentTime.getMinutes()); // 分単位に変換
+
+        // フォーム送信時の処理
+        document.getElementById('time-form').addEventListener('submit', function(event) {
+            const nowMinutes = (new Date().getMinutes());
+            console.log(currentMinutes,nowMinutes)
+            if (currentMinutes !== nowMinutes) {
+                alert("再読み込みしてください")
+                return false
+                event.preventDefault();
+                document.getElementById('error-message').style.display = 'block';
+            } else {
+                document.getElementById('error-message').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
